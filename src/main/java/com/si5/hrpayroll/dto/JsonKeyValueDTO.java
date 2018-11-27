@@ -1,6 +1,8 @@
 package com.si5.hrpayroll.dto;
 
-public class JsonKeyValueDTO {
+import java.io.Serializable;
+
+public class JsonKeyValueDTO implements Serializable {
     private String key;
     private String value ;
 

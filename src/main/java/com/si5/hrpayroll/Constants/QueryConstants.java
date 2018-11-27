@@ -24,11 +24,15 @@ public class QueryConstants {
     ) ;
 
     public static StringBuilder GET_MAX_ID_EDUCATIONDETAILS = new StringBuilder(
-            "select max(EducationId) from EducationDetails"
+            "select max(Id) from EducationDetails"
     ) ;
 
     public static StringBuilder GET_MAX_ID_SALARYDETAILS = new StringBuilder(
             "select max(SalaryId) from SalaryDetails"
+    ) ;
+
+    public static StringBuilder GET_PASSWORD_FROM_HR = new StringBuilder(
+            "select Password,JobId from PasswordDetails where EmployeeId = ? or EmailId = ?"
     ) ;
 
 

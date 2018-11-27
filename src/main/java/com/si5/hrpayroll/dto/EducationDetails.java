@@ -1,8 +1,9 @@
 package com.si5.hrpayroll.dto;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class EducationDetails {
+public class EducationDetails implements Serializable {
     private String nameOfSchool ;
     private String degree;
     private String startDate ;

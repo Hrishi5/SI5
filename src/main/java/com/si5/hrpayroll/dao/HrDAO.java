@@ -73,21 +73,27 @@ public class HrDAO {
 
     public int createEmployee(Employee employee) {
         int result = 0 ;
-        String employeeId = QueryConstants.GET_MAX_ID_EMPLOYEEDETAILS.toString() ;
+        employee.setIsActive(true);
+        employee.setIsMigrated(false);
+        SqlParameterSource ps= new BeanPropertySqlParameterSource(employee) ;
+        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
+                .withTableName("EmployeeDetails").usingGeneratedKeyColumns("EmployeeId") ;
+        Number key = jdbcInsert.executeAndReturnKey(ps) ;
+        if(key != null) {
+            result++ ;
+        }
+        String employeeId = String.valueOf(key.intValue()) ;
         employee.setEmployeeId(employeeId);
         employee.getContactDetails().setEmployeeId(employeeId);
-        employee.getContactDetails().setContactId(getMaxId(QueryConstants.GET_MAX_ID_CONTACTDETAILS.toString())) ;
+        //employee.getContactDetails().setContactId(getMaxId(QueryConstants.GET_MAX_ID_CONTACTDETAILS.toString())) ;
         employee.getEducationDetails().setEmployeeId(employeeId);
-        employee.getEducationDetails().setEducationId(getMaxId(QueryConstants.GET_MAX_ID_EDUCATIONDETAILS.toString()));
-        employee.getSalaryDetails().setSalaryId(getMaxId(QueryConstants.GET_MAX_ID_SALARYDETAILS.toString()));
+        //employee.getEducationDetails().setEducationId(getMaxId(QueryConstants.GET_MAX_ID_EDUCATIONDETAILS.toString()));
+        //employee.getSalaryDetails().setSalaryId(getMaxId(QueryConstants.GET_MAX_ID_SALARYDETAILS.toString()));
         employee.getSalaryDetails().setEmployeeId(employeeId);
-        SqlParameterSource ps= new BeanPropertySqlParameterSource(employee) ;
         SqlParameterSource cdps = new BeanPropertySqlParameterSource(employee.getContactDetails()) ;
         SqlParameterSource sdps = new BeanPropertySqlParameterSource(employee.getSalaryDetails()) ;
         SqlParameterSource edps = new BeanPropertySqlParameterSource(employee.getEducationDetails()) ;
-        SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
-                .withTableName("EmployeeDetails") ;
-        result += jdbcInsert.execute(ps) ;
+
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("ContactDetails") ;
         result += jdbcInsert.execute(cdps) ;
@@ -97,7 +103,7 @@ public class HrDAO {
         jdbcInsert = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("EducationDetails") ;
         result += jdbcInsert.execute(edps) ;
-        return result ;
+        return key.intValue() ;
     }
 
     public String getMaxId(String query) {

@@ -1,6 +1,8 @@
 package com.si5.hrpayroll.dto;
 
-public class ContactDetails {
+import java.io.Serializable;
+
+public class ContactDetails implements Serializable {
     private String phoneNumber ;
     private String email ;
     private String address ;

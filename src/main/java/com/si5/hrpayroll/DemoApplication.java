@@ -1,4 +1,4 @@
-package com.SI5.hrpayroll;
+package com.si5.hrpayroll;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

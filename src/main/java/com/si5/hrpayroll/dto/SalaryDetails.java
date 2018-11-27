@@ -1,10 +1,12 @@
 package com.si5.hrpayroll.dto;
 
-public class SalaryDetails {
+import java.io.Serializable;
+
+public class SalaryDetails implements Serializable {
 
     private String employeeId ;
     private String amount ;
-    private boolean isMonthly ;
+    private boolean isMonthly = false ;
     private String salaryId ;
 
     public String getEmployeeId() {
@@ -23,11 +25,11 @@ public class SalaryDetails {
         this.amount = amount;
     }
 
-    public boolean isMonthly() {
+    public boolean getIsMonthly() {
         return isMonthly;
     }
 
-    public void setMonthly(boolean monthly) {
+    public void setIsMonthly(boolean monthly) {
         isMonthly = monthly;
     }
 

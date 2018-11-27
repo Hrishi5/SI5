@@ -1,11 +1,15 @@
 package com.si5.hrpayroll;
 
+import com.si5.hrpayroll.dto.FieldsListDTO;
 import com.si5.hrpayroll.dto.JsonKeyValueDTO;
 import com.si5.hrpayroll.dto.ResponseDTO;
 import com.si5.hrpayroll.service.HRService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import com.si5.hrpayroll.dto.Employee ;
+
+
+import java.util.List;
 
 
 @RestController
@@ -36,18 +40,15 @@ public class HRController {
     }
 
     @PostMapping("/create-employee")
-    public String createEmployee(@RequestBody Employee employee) {
-        return null ;
+    public ResponseDTO createEmployee(@RequestBody Employee employee) {
+        return hrservice.createEmployee(employee) ;
     }
 
-    @RequestMapping("/updateEmployee")
-    public String updateEmployee() {
-            return null ;
+    @RequestMapping("/update-employee")
+    public ResponseDTO updateEmployee(@RequestBody FieldsListDTO fieldsListDTO) {
+            return hrservice.updateEmployeeDetails(fieldsListDTO.getFieldList(),fieldsListDTO.getEmployeeId()) ;
     }
 
-    @RequestMapping("/deactivate")
-    public String deactivateEmployee() {
-        return null ;
-    }
+
     
 }

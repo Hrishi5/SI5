@@ -1,23 +1,36 @@
 package com.si5.hrpayroll.dto ;
 
-import com.si5.hrpayroll.dto.ContactDetails;
-import com.si5.hrpayroll.dto.EducationDetails;
-import com.si5.hrpayroll.dto.SalaryDetails;
-
-import java.sql.Date;
-
 public class Employee {
 
     private String employeeId;
     private String firstName;
     private String lastName;
     private int age;
-    private Date dateOfBirth;
+    private String dateOfBirth;
     private String maritalStatus;
     private char gender;
     private String hiringDate;
     private String joiningDate;
     private String jobId;
+    private boolean isActive ;
+    private boolean isMigrated ;
+
+    public boolean getIsActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public boolean getIsMigrated() {
+        return isMigrated;
+    }
+
+    public void setIsMigrated(boolean isMigrated) {
+        this.isMigrated = isMigrated;
+    }
+
     private ContactDetails contactDetails ;
     private EducationDetails educationDetails ;
     private SalaryDetails salaryDetails ;
@@ -78,11 +91,11 @@ public class Employee {
         this.age = age;
     }
 
-    public Date getDateOfBirth() {
+    public String getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

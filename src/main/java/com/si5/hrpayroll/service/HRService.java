@@ -53,8 +53,11 @@ public class HRService {
         return getResponseObjectForIntResult(result,"Employee created successfully","Employee creation failed",null) ;
     }
 
-    public ResponseDTO updateEmployeeDetails(List<JsonKeyValueDTO> updateList, String employeeId) {
-        return null ;
+    public ResponseDTO updateEmployeeDetails(Employee employee) {
+        int result = hrdao.updateEmployeeDetails(employee) ;
+        String successMsg = "Employee " + employee.getEmployeeId() + " updated successfully!" ;
+        String failureMsg = "Failed to update Employee " + employee.getEmployeeId() ;
+        return getResponseObjectForIntResult(result,successMsg, failureMsg, null) ;
     }
 
     public ResponseDTO getResponseObjectForIntResult(int result, String success, String failure,List response) {

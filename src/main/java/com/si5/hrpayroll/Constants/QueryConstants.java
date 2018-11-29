@@ -35,6 +35,61 @@ public class QueryConstants {
             "select Password,JobId from PasswordDetails where EmployeeId = ? or EmailId = ?"
     ) ;
 
+    public static StringBuilder SET_PASSWORD = new StringBuilder(
+            "UPDATE PasswordDetails p set p.Password = ? where p.EmployeeId = ? or p.EmailId = ?"
+    ) ;
+
+    public static StringBuilder GET_PAYROLL_DETAILS = new StringBuilder(
+            "select * from PayRollDetails where EmployeeId = ?"
+    ) ;
+
+    public static StringBuilder GET_BANK_DETAILS = new StringBuilder(
+            "select * from BankDetails b, PayRollDetails p where b.BankId = p.BankId and p.EmployeeId = ?"
+    ) ;
+
+    public static StringBuilder GET_TAX_DETAILS = new StringBuilder(
+            "select * from TaxDetails where EmployeeId = ?"
+    ) ;
+
+    public static StringBuilder UPDATE_EMPLOYEE_DETAILS = new StringBuilder(
+            "UPDATE HR.EmployeeDetails\n" +
+                    "SET\n" +
+                    "FirstName = :firstName ,\n" +
+                    "LastName = :lastName ,\n" +
+                    "Age = :age ,\n" +
+                    "DateOfBirth = :dateOfBirth ,\n" +
+                    "MaritalStatus = :maritalStatus ,\n" +
+                    "Gender = :gender ,\n" +
+                    "HiringDate = :hiringDate ,\n" +
+                    "JoiningDate = :joiningDate ,\n" +
+                    "JobId = :jobId ,\n" +
+                    "IsMigrated = 0 \n" +
+                    "WHERE EmployeeId = :employeeId and IsActive = 1\n"
+    ) ;
+
+    public static StringBuilder UPDATE_EDUCATION_DETAILS = new StringBuilder(
+            "UPDATE HR.EducationDetails\n" +
+                    "SET\n" +
+                    "NameOfSchool =:nameOfSchool ,\n" +
+                    "Degree =:degree ,\n" +
+                    "StartDate =:startDate ,\n" +
+                    "EndDate =:endDate \n" +
+                    "WHERE EmployeeId =:employeeId\n"
+    ) ;
+
+    public static StringBuilder UPDATE_CONTACT_DETAILS = new StringBuilder(
+    "UPDATE HR.ContactDetails\n" +
+            "SET\n" +
+            "PhoneNumber =:phoneNumber,\n" +
+            "Address =:address,\n" +
+            "Email=:email where EmployeeId=:employeeId"
+    ) ;
+
+    public static StringBuilder UPDATE_SALARY_DETAILS = new StringBuilder(
+            "UPDATE HR.SalaryDetails set Amount=:amount, IsMonthly=:isMonthly where EmployeeId=:employeeId"
+    ) ;
+
+
 
 
 

@@ -3,12 +3,15 @@ package com.si5.hrpayroll.dao;
 import com.si5.hrpayroll.Constants.QueryConstants;
 import com.si5.hrpayroll.dto.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,15 +25,8 @@ import java.util.Map;
 @Repository
 public class HrDAO {
     @Autowired
+    @Qualifier("hrJdbc")
     private JdbcTemplate jdbcTemplate  ;
-
-    @Autowired
-    public HrDAO(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate ;
-    }
-
-
-
 
     public void testDatabaseConnection() {
         List<Map<String,Object>> list = jdbcTemplate.queryForList("select * from EducationDetails") ;
@@ -111,16 +107,22 @@ public class HrDAO {
         return String.valueOf(result + 1) ;
     }
 
-    public int updateEmployeeDetails(List<JsonKeyValueDTO> updateList,String table,String employeeId) {
-        StringBuilder query = new StringBuilder("Update " + table + " set ") ;
-        for(JsonKeyValueDTO prop : updateList) {
-            if(prop.getKey() != null && prop.getValue() != null) {
-                query.append(prop.getKey() + "=" + prop.getValue() + ",");
-            }
+    public int updateEmployeeDetails(Employee employee) {
+        String employeeId = employee.getEmployeeId() ;
+        NamedParameterJdbcTemplate npjt = new NamedParameterJdbcTemplate(jdbcTemplate) ;
+        int result = npjt.update(QueryConstants.UPDATE_EMPLOYEE_DETAILS.toString(),new BeanPropertySqlParameterSource(employee)) ;
+        if(result == 0) {
+            return 0 ;
         }
-        query.deleteCharAt(query.length()-1) ;
-        query.append(" where employeeId = ?") ;
-        return jdbcTemplate.update(query.toString() , new Object[]{employeeId}) ;
+        employee.getContactDetails().setEmployeeId(employeeId);
+        employee.getSalaryDetails().setEmployeeId(employeeId);
+        employee.getEducationDetails().setEmployeeId(employeeId);
+        result+=npjt.update(QueryConstants.UPDATE_CONTACT_DETAILS.toString(), new BeanPropertySqlParameterSource(employee.getContactDetails())) ;
+        result+=npjt.update(QueryConstants.UPDATE_EDUCATION_DETAILS.toString(),new BeanPropertySqlParameterSource(employee.getEducationDetails())) ;
+        result+=npjt.update(QueryConstants.UPDATE_SALARY_DETAILS.toString(),new BeanPropertySqlParameterSource(employee.getSalaryDetails())) ;
+        return result ;
     }
+
+
 
 }

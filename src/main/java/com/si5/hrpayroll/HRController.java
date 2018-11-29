@@ -44,9 +44,9 @@ public class HRController {
         return hrservice.createEmployee(employee) ;
     }
 
-    @RequestMapping("/update-employee")
-    public ResponseDTO updateEmployee(@RequestBody FieldsListDTO fieldsListDTO) {
-            return hrservice.updateEmployeeDetails(fieldsListDTO.getFieldList(),fieldsListDTO.getEmployeeId()) ;
+    @PatchMapping("/update-employee")
+    public ResponseDTO updateEmployee(@RequestBody Employee employee) {
+          return hrservice.updateEmployeeDetails(employee) ;
     }
 
 

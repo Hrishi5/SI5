@@ -8,7 +8,7 @@ public class Employee {
     private int age;
     private String dateOfBirth;
     private String maritalStatus;
-    private char gender;
+    private String gender;
     private String hiringDate;
     private String joiningDate;
     private String jobId;
@@ -107,11 +107,11 @@ public class Employee {
         this.maritalStatus = maritalStatus;
     }
 
-    public char getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(char gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

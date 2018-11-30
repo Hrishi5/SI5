@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
@@ -35,7 +36,12 @@ public class PayrollDAO {
     }
 
     public int updateEmployeeDetails(PayrollDTO payrollDTO) {
-        return 0 ;
+        NamedParameterJdbcTemplate npjt = new NamedParameterJdbcTemplate(jdbcTemplate) ;
+        String employeeId = payrollDTO.getPayrollDetails().getEmployeeId() ;
+        payrollDTO.getTaxDetails().setEmployeeId(employeeId);
+        int result = npjt.update(QueryConstants.UPDATE_PAYROLL_DETAILS.toString(), new BeanPropertySqlParameterSource(payrollDTO.getPayrollDetails())) ;
+        result+= npjt.update(QueryConstants.UPDATE_TAX_DETAILS.toString(), new BeanPropertySqlParameterSource(payrollDTO.getTaxDetails())) ;
+        return result ;
     }
 
 

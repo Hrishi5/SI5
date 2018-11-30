@@ -27,4 +27,17 @@ public class PayrollService {
         return responseDTO ;
     }
 
+    public ResponseDTO updateEmployeeDetails(PayrollDTO payrollDTO) {
+        ResponseDTO responseDTO = new ResponseDTO() ;
+        int result = payrollDAO.updateEmployeeDetails(payrollDTO) ;
+        if(result == 0) {
+            responseDTO.setMessage("Could not update details");
+        }else{
+            responseDTO.setStatusId(1);
+            responseDTO.setMessage("Update successful");
+            responseDTO.setResponse(result);
+        }
+        return responseDTO ;
+    }
+
 }

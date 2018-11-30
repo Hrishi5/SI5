@@ -8,7 +8,7 @@ public class QueryConstants {
             "INNER JOIN SalaryDetails as sd on sd.EmployeeId = e.EmployeeId where e.employeeId = ?") ;
 
     public static StringBuilder GET_EMPLOYEES = new StringBuilder(
-            "select EmployeeId,firstName,lastName,Gender from EmployeeDetails"
+            "select * from EmployeeDetails"
     ) ;
 
     public static StringBuilder DEACTIVATE_EMPLOYEE = new StringBuilder(
@@ -87,6 +87,16 @@ public class QueryConstants {
 
     public static StringBuilder UPDATE_SALARY_DETAILS = new StringBuilder(
             "UPDATE HR.SalaryDetails set Amount=:amount, IsMonthly=:isMonthly where EmployeeId=:employeeId"
+    ) ;
+
+    public static StringBuilder UPDATE_PAYROLL_DETAILS = new StringBuilder(
+            "Update PayRoll.PayRollDetails set Address = :address, BankId = :bankId, " +
+                    "PaymentMethod = :paymentMethod, AccountNumber = :accountNumber " +
+                    "where EmployeeId = :employeeId and IsActive = 1"
+    ) ;
+
+    public static StringBuilder UPDATE_TAX_DETAILS = new StringBuilder(
+            "Update PayRoll.TaxDetails set SSNNumber = :ssnNumber, IsTaxExempt = :isTaxExempt where EmployeeId = :employeeId"
     ) ;
 
 

@@ -9,7 +9,26 @@ public class PayrollDetailsDTO implements Serializable {
     private String lastName;
     private int bankId ;
     private int salary ;
+    private String address ;
     private boolean isActive ;
+    private String paymentMethod ;
+    private String accountNumber ;
+
+    public String getPaymentMethod() {
+        return paymentMethod;
+    }
+
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getAccountNumber() {
+        return accountNumber;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
 
     @Override
     public String toString() {
@@ -21,6 +40,14 @@ public class PayrollDetailsDTO implements Serializable {
                 ", salary=" + salary +
                 ", isActive=" + isActive +
                 '}';
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getEmployeeId() {
